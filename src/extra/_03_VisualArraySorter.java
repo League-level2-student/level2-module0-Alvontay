@@ -1,59 +1,48 @@
 package extra;
 
+import java.util.Random;
+
 import processing.core.PApplet;
 
-/*
- * Goal: Create a program that sorts each rectangle by height!
- * 
- * 1. Create an array of ints. Do not initialize it.
- *
- *In the settings() method:
- * 2. Set the size of your window to at least 500 width 500 height
- * 
- * In the setup() method:
- * 3. Initialize your array to contain 50 ints
- * 
- * 4. Initialize the ints in the array with random numbers from
- *    0 to the window height. Use the following code to get a random int:
- *    (int)random(height)
- * 
- * 5. Call the noStroke() method to remove the outline for each shape
- * 
- * In the draw() method:
- * 6. Set the background color with background(r, g, b);
- * 
- * 7. Set the color for your graph using the fill() method
- * 
- * 8. Draw a rectangle for each int in your array.
- *    the x value will be the loop variable multiplied by (width/intArray.length)
- *    the y value will the height variable
- *    the width is (width/intArray.length)
- *    the height is the negative array value at the array index, e.g. -intArray[i]
- * 
- * 9. Call the stepSort method
- * 
- * 10. Extract the code from step 4 that randomizes the array into a new method.
- * 
- * 11. Call the method you made in step 10 when the mouse is pressed using the
- *     mousePressed variable
- */
 public class _03_VisualArraySorter extends PApplet {
-    static final int WIDTH = 600;
-    static final int HEIGHT = 400;
-
+    static final int WIDTH = 500;
+    static final int HEIGHT = 500;
+    
+    int[] intArray;
+    Random r = new Random();
+    
     @Override
     public void settings() {
-        
+    	size(WIDTH,HEIGHT);
     }
 
     @Override
     public void setup() {
+        intArray = new int[50];
         
+        for (int i = 0; i < intArray.length; i++) {
+        	intArray[i] = r.nextInt(HEIGHT);
+        }      
+        noStroke();
     }
+    
+    public void mousePressed() {
+    	for (int i = 0; i < intArray.length; i++) {
+        	intArray[i] = r.nextInt(HEIGHT);
+        }  
+    }
+    
 
     @Override
     public void draw() {
-        
+        background(20,30,40);
+
+        for( int i = 0; i < intArray.length; i++) {
+        	rect(i*WIDTH/intArray.length,HEIGHT, WIDTH/intArray.length,-intArray[i]);
+//            fill(r.nextInt(25) + 25,r.nextInt(25) + 25,r.nextInt(25) + 25);
+        	fill(35,45,55);
+        }
+        stepSort(intArray);
     }
 
     static public void main(String[] passedArgs) {
